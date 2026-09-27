@@ -1,0 +1,14 @@
+{
+  "name": "math-wars",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Math Wars - real-time multiplayer math battle game",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "socket.io": "^4.8.4"
+  }
+}

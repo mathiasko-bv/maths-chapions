@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1020">
+  <title>Math Wars 🏆</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="app">
+    <header class="topbar">
+      <div class="brand">MATH <span>WARS</span> 🏆</div>
+      <div id="connection" class="connection offline">● Hors ligne</div>
+    </header>
+
+    <section id="home" class="screen active">
+      <div class="hero">
+        <div class="hero-mark">∑</div>
+        <p class="eyebrow">JEU MATHÉMATIQUE EN DIRECT</p>
+        <h1>Réfléchis.<br><span>Réponds. Domine.</span></h1>
+        <p class="sub">Affronte de vrais joueurs en temps réel. Le plus rapide à trouver la bonne réponse marque les points.</p>
+      </div>
+      <div class="panel">
+        <label for="playerName">Ton pseudo</label>
+        <input id="playerName" maxlength="20" placeholder="Ex. Rio" autocomplete="nickname">
+        <div class="grid2">
+          <button id="createBtn" class="primary">🎮 Créer une salle</button>
+          <button id="joinBtn" class="secondary">🔑 Rejoindre</button>
+        </div>
+      </div>
+      <div class="feature-row">
+        <div><b>⚡ 3 pts</b><small>1er correct</small></div>
+        <div><b>🥈 2 pts</b><small>2e correct</small></div>
+        <div><b>🥉 1 pt</b><small>3e correct</small></div>
+      </div>
+    </section>
+
+    <section id="join" class="screen">
+      <button class="back" data-go="home">← Retour</button>
+      <div class="panel center">
+        <div class="big-icon">🔑</div>
+        <h2>Rejoindre une salle</h2>
+        <p>Entre le code partagé par l'hôte.</p>
+        <input id="roomCode" maxlength="12" placeholder="MW-AB12" autocapitalize="characters">
+        <button id="joinConfirm" class="primary full">Rejoindre la bataille</button>
+        <div id="joinError" class="error"></div>
+      </div>
+    </section>
+
+    <section id="create" class="screen">
+      <button class="back" data-go="home">← Retour</button>
+      <div class="panel">
+        <div class="big-icon">🏠</div>
+        <h2>Créer une salle</h2>
+        <label for="roomName">Nom de la salle</label>
+        <input id="roomName" maxlength="30" value="Math Battle">
+        <label>Nombre maximum</label>
+        <div class="choice-row" id="sizeChoices">
+          <button data-size="2" class="choice selected">2</button>
+          <button data-size="4" class="choice">4</button>
+          <button data-size="6" class="choice">6</button>
+          <button data-size="8" class="choice">8</button>
+        </div>
+        <label>Difficulté</label>
+        <select id="difficulty">
+          <option>Mixte</option>
+          <option>Facile</option>
+          <option>Normal</option>
+          <option>Difficile</option>
+        </select>
+        <button id="createConfirm" class="primary full">Créer la salle</button>
+        <div id="createError" class="error"></div>
+      </div>
+    </section>
+
+    <section id="lobby" class="screen">
+      <div class="room-header">
+        <div>
+          <p class="eyebrow">SALLE</p>
+          <h2 id="lobbyCode">MW-----</h2>
+        </div>
+        <button id="copyRoom" class="small">Partager</button>
+      </div>
+      <div class="panel">
+        <div class="lobby-status"><span id="playerCount">0/8</span><span id="lobbyState">En attente</span></div>
+        <div id="players" class="players"></div>
+      </div>
+      <button id="readyBtn" class="secondary full">✓ Je suis prêt</button>
+      <button id="startBtn" class="primary full hidden">🚀 Lancer la partie</button>
+      <p id="lobbyHint" class="hint">Il faut au moins 2 joueurs. Partage le code pour inviter un adversaire.</p>
+    </section>
+
+    <section id="game" class="screen">
+      <div class="game-top">
+        <div><span id="roundLabel">Manche 1</span><b id="roundName">Calcul mental</b></div>
+        <div class="timer" id="timer">10</div>
+      </div>
+      <div class="question-card">
+        <div class="q-meta"><span id="qNumber">QUESTION 1</span><span id="qDifficulty">NORMAL</span></div>
+        <div id="question" class="question">Préparation…</div>
+        <form id="answerForm">
+          <input id="answer" inputmode="decimal" autocomplete="off" placeholder="Ta réponse" aria-label="Ta réponse">
+          <button class="primary full" type="submit">⚔️ RÉPONDRE</button>
+        </form>
+        <div id="answerStatus" class="status" aria-live="polite"></div>
+      </div>
+      <div id="liveBoard" class="leaderboard"></div>
+    </section>
+
+    <section id="results" class="screen">
+      <div class="center">
+        <div class="big-icon">📣</div>
+        <p class="eyebrow">RÉSULTAT</p>
+        <h2 id="resultTitle">Question terminée</h2>
+        <div class="answer-reveal"><span>Réponse</span><b id="correctAnswer">—</b></div>
+        <p id="explanation"></p>
+      </div>
+      <div id="resultList" class="result-list"></div>
+    </section>
+
+    <section id="podium" class="screen">
+      <div class="center">
+        <div class="big-icon">🏆</div>
+        <p class="eyebrow">MATH WARS</p>
+        <h1>FIN DE LA PARTIE</h1>
+      </div>
+      <div id="podiumList" class="podium"></div>
+      <button id="backHome" class="primary full">Retour à l'accueil</button>
+    </section>
+
+    <div id="countdown" class="overlay hidden">
+      <div class="countdown-box">
+        <span>PROCHAINE BATAILLE</span>
+        <strong id="countdownNumber">3</strong>
+        <small>Prépare ta réponse !</small>
+      </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
